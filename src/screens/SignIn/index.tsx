@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { View } from 'react-native';
 import { ButtonIcon } from '../../components/ButtonIcon';
 
 import { Container, IntroImage, Content, Title, Subtitle } from './styles';
@@ -11,17 +12,17 @@ export const SignIn: React.FC = () => {
     <Container>
       <IntroImage source={illustrationImg} resizeMode="stretch" />
       <Content>
-        <Title>
-          Organize{'\n'}
-          suas jogatinas{'\n'}
-          facilmente
-        </Title>
+        <View>
+          <Title>
+            Conecte-se{'\n'}e organize suas{'\n'}
+            jogatinas
+          </Title>
 
-        <Subtitle>
-          Crie grupos para jogar seus games{'\n'}
-          favoritos com seus amigos
-        </Subtitle>
-
+          <Subtitle>
+            Crie grupos para jogar seus games{'\n'}
+            favoritos com seus amigos
+          </Subtitle>
+        </View>
         <ButtonIcon>Entrar com Discord</ButtonIcon>
       </Content>
     </Container>
