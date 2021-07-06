@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { ButtonIcon } from '../../components/ButtonIcon';
 
 import { Container, IntroImage, Content, Title, Subtitle } from './styles';
@@ -8,6 +9,12 @@ import { Container, IntroImage, Content, Title, Subtitle } from './styles';
 import illustrationImg from '../../assets/illustration.png';
 
 export const SignIn: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleSignIn = useCallback(() => {
+    navigation.navigate('Home');
+  }, [navigation]);
+
   return (
     <Container>
       <IntroImage source={illustrationImg} resizeMode="stretch" />
@@ -23,7 +30,7 @@ export const SignIn: React.FC = () => {
             favoritos com seus amigos
           </Subtitle>
         </View>
-        <ButtonIcon>Entrar com Discord</ButtonIcon>
+        <ButtonIcon title="Entrar com Discord" onPress={handleSignIn} />
       </Content>
     </Container>
   );

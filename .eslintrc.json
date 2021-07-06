@@ -22,6 +22,7 @@
   "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
   "rules": {
     "prettier/prettier": "error",
+    "@typescript-eslint/ban-types": "off",
     "camelcase": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",

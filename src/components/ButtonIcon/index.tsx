@@ -1,17 +1,22 @@
 import React from 'react';
+import { RectButtonProps } from 'react-native-gesture-handler';
 
 import dicordImg from '../../assets/discord.png';
 
 import { Container, IconWrapper, Icon, ButtonText } from './styles';
 
-export const ButtonIcon: React.FC = ({ children }) => {
+type Props = RectButtonProps & {
+  title: string;
+};
+
+export const ButtonIcon: React.FC<Props> = ({ title, ...rest }) => {
   return (
-    <Container activeOpacity={0.7}>
+    <Container {...rest}>
       <IconWrapper>
         <Icon source={dicordImg} />
       </IconWrapper>
 
-      <ButtonText>{children}</ButtonText>
+      <ButtonText>{title}</ButtonText>
     </Container>
   );
 };
