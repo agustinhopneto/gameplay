@@ -1,4 +1,7 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native';
+
+import { Appointment } from '../../utils/interfaces';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -13,4 +16,10 @@ export const Header = styled.View`
   margin-bottom: 42px;
 `;
 
-export const Content = styled.View``;
+export const Content = styled.View`
+  margin-top: 40px;
+`;
+
+export const Appointments = styled(FlatList as new () => FlatList<Appointment>)`
+  padding-top: 8px;
+`;

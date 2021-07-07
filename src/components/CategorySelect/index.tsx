@@ -5,12 +5,12 @@ import { categories } from '../../utils/categories';
 import { Category } from '../Category';
 
 type Props = {
-  categorySelected: string;
+  selectedCategories: string[];
   setCategory: (categoryId: string) => void;
 };
 
 export const CategorySelect: React.FC<Props> = ({
-  categorySelected,
+  selectedCategories,
   setCategory,
 }) => {
   return (
@@ -24,7 +24,7 @@ export const CategorySelect: React.FC<Props> = ({
           key={category.id}
           title={category.title}
           icon={category.icon}
-          checked={category.id === categorySelected}
+          checked={selectedCategories.includes(category.id)}
           onPress={() => setCategory(category.id)}
         />
       ))}
