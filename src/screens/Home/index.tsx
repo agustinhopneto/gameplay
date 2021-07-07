@@ -8,6 +8,7 @@ import { Appointment } from '../../components/Appointment';
 
 import { Container, Header, Content, Appointments } from './styles';
 import { Background } from '../../components/Background';
+import { setCategory } from '../../utils/functions';
 
 const appointments = [
   {
@@ -97,27 +98,13 @@ const appointments = [
 ];
 
 export const Home: React.FC = () => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleCategorySelect = useCallback(
     (categoryId: string) => {
-      const alreadySelected = selectedCategories.findIndex(
-        category => category === categoryId,
-      );
-
-      if (alreadySelected >= 0) {
-        const filteredCategories = selectedCategories.filter(
-          category => category !== categoryId,
-        );
-
-        setSelectedCategories(filteredCategories);
-
-        return;
-      }
-
-      setSelectedCategories([...selectedCategories, categoryId]);
+      setSelectedCategory(setCategory(selectedCategory, categoryId) as string);
     },
-    [selectedCategories],
+    [selectedCategory],
   );
 
   return (
@@ -129,7 +116,7 @@ export const Home: React.FC = () => {
         </Header>
 
         <CategorySelect
-          selectedCategories={selectedCategories}
+          selectedCategories={selectedCategory}
           setCategory={handleCategorySelect}
         />
 

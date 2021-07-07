@@ -9,14 +9,14 @@ import { Container, Gradient, Content, Check, Title } from './styles';
 type Props = RectButtonProps & {
   title: string;
   icon: React.FC<SvgProps>;
-  checked?: boolean;
+  checked: boolean;
   hasCheckIcon?: boolean;
 };
 
 export const Category: React.FC<Props> = ({
   title,
   icon: Icon,
-  checked = false,
+  checked,
   hasCheckIcon = false,
   ...rest
 }) => {

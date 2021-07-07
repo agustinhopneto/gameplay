@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { Container } from './styles';
-import { categories } from '../../utils/categories';
+import { categories } from '../../utils/data';
 import { Category } from '../Category';
 
 type Props = {
-  selectedCategories: string[];
+  selectedCategories: string[] | string;
   setCategory: (categoryId: string) => void;
 };
 
@@ -13,6 +13,17 @@ export const CategorySelect: React.FC<Props> = ({
   selectedCategories,
   setCategory,
 }) => {
+  const handleCheck = useCallback(
+    (id: string) => {
+      if (Array.isArray(selectedCategories)) {
+        return selectedCategories.includes(id);
+      }
+
+      return id === selectedCategories;
+    },
+    [selectedCategories],
+  );
+
   return (
     <Container
       horizontal
@@ -24,7 +35,7 @@ export const CategorySelect: React.FC<Props> = ({
           key={category.id}
           title={category.title}
           icon={category.icon}
-          checked={selectedCategories.includes(category.id)}
+          checked={handleCheck(category.id)}
           onPress={() => setCategory(category.id)}
         />
       ))}

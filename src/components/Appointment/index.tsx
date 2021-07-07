@@ -1,7 +1,7 @@
 import React from 'react';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
-import { categories } from '../../utils/categories';
+import { categories } from '../../utils/data';
 import { Appointment as AppointmentProps } from '../../utils/interfaces';
 import { GuildIcon } from '../GuildIcon';
 
