@@ -9,6 +9,8 @@ interface CheckProps {
 
 export const Container = styled(RectButton)<CheckProps>`
   opacity: ${props => (props.checked ? 1 : 0.5)};
+  margin-right: 8px;
+  border-radius: 8px;
 `;
 
 export const Gradient = styled(LinearGradient)`
@@ -17,7 +19,6 @@ export const Gradient = styled(LinearGradient)`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  margin-right: 8px;
 `;
 
 export const Content = styled(LinearGradient)<CheckProps>`
