@@ -1,10 +1,14 @@
-import styled from 'styled-components/native';
-import { FlatList } from 'react-native';
+import styled, { css } from 'styled-components/native';
+import { FlatList, Platform } from 'react-native';
 
 import { Appointment } from '../../utils/interfaces';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
+  ${Platform.OS === 'android' &&
+  css`
+    padding-top: 24px;
+  `}
 `;
 
 export const Header = styled.View`
