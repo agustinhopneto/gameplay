@@ -21,9 +21,11 @@ export const Header = styled.View`
 `;
 
 export const Content = styled.View`
+  flex: 1;
   margin-top: 40px;
 `;
 
 export const Appointments = styled(FlatList as new () => FlatList<Appointment>)`
   padding-top: 8px;
+  margin-bottom: 24px;
 `;
