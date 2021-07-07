@@ -7,6 +7,7 @@ import { Profile } from '../../components/Profile';
 import { Appointment } from '../../components/Appointment';
 
 import { Container, Header, Content, Appointments } from './styles';
+import { Background } from '../../components/Background';
 
 const appointments = [
   {
@@ -120,27 +121,29 @@ export const Home: React.FC = () => {
   );
 
   return (
-    <Container>
-      <Header>
-        <Profile />
-        <ButtonAdd />
-      </Header>
+    <Background>
+      <Container>
+        <Header>
+          <Profile />
+          <ButtonAdd />
+        </Header>
 
-      <CategorySelect
-        selectedCategories={selectedCategories}
-        setCategory={handleCategorySelect}
-      />
-
-      <Content>
-        <ListHeader title="Partidas agendadas" subtitle="Total 6" />
-
-        <Appointments
-          data={appointments}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <Appointment data={item} />}
+        <CategorySelect
+          selectedCategories={selectedCategories}
+          setCategory={handleCategorySelect}
         />
-      </Content>
-    </Container>
+
+        <Content>
+          <ListHeader title="Partidas agendadas" subtitle="Total 6" />
+
+          <Appointments
+            data={appointments}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => <Appointment data={item} />}
+          />
+        </Content>
+      </Container>
+    </Background>
   );
 };
