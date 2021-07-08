@@ -7,5 +7,5 @@ export const Container = styled.Image`
   border-radius: 8px;
   margin-right: 20px;
   border-width: 1px;
-  border-color: ${theme.colors.secondary40};
+  border-color: ${theme.colors.secondary60};
 `;

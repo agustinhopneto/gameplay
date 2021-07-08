@@ -8,10 +8,10 @@ type Props = {
 };
 
 export const Avatar: React.FC<Props> = ({ urlImage }) => {
-  const { secondary30, secondary80 } = theme.colors;
+  const { secondary40, secondary60 } = theme.colors;
 
   return (
-    <Container colors={[secondary30, secondary80]}>
+    <Container colors={[secondary40, secondary60]}>
       <AvatarImage source={{ uri: urlImage }} />
     </Container>
   );

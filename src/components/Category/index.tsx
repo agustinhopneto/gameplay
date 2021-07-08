@@ -20,12 +20,12 @@ export const Category: React.FC<Props> = ({
   hasCheckIcon = false,
   ...rest
 }) => {
-  const { secondary30, secondary70, secondary80 } = theme.colors;
+  const { secondary40, secondary50, secondary60, secondary70 } = theme.colors;
 
   return (
     <Container {...rest} checked={checked}>
-      <Gradient colors={[secondary30, secondary80]}>
-        <Content checked={checked} colors={[secondary80, secondary70]}>
+      <Gradient colors={[secondary40, secondary60]}>
+        <Content checked={checked} colors={[secondary70, secondary50]}>
           {hasCheckIcon && <Check checked={checked} />}
           <Icon width={48} height={48} />
 
