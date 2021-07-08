@@ -9,7 +9,6 @@ import {
 import { StatusBar } from 'react-native';
 
 import { Routes } from './src/routes';
-import { Background } from './src/components/Background';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -24,14 +23,14 @@ const App: React.FC = () => {
   }
 
   return (
-    <Background>
+    <>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
       <Routes />
-    </Background>
+    </>
   );
 };
 
