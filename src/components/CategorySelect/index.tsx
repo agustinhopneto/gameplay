@@ -7,11 +7,13 @@ import { Category } from '../Category';
 type Props = {
   selectedCategories: string[] | string;
   setCategory: (categoryId: string) => void;
+  hasCheckBox?: boolean;
 };
 
 export const CategorySelect: React.FC<Props> = ({
   selectedCategories,
   setCategory,
+  hasCheckBox = false,
 }) => {
   const handleCheck = useCallback(
     (id: string) => {
@@ -37,6 +39,7 @@ export const CategorySelect: React.FC<Props> = ({
           icon={category.icon}
           checked={handleCheck(category.id)}
           onPress={() => setCategory(category.id)}
+          hasCheckBox={hasCheckBox}
         />
       ))}
     </Container>

@@ -10,14 +10,14 @@ type Props = RectButtonProps & {
   title: string;
   icon: React.FC<SvgProps>;
   checked: boolean;
-  hasCheckIcon?: boolean;
+  hasCheckBox?: boolean;
 };
 
 export const Category: React.FC<Props> = ({
   title,
   icon: Icon,
   checked,
-  hasCheckIcon = false,
+  hasCheckBox = false,
   ...rest
 }) => {
   const { secondary40, secondary50, secondary60, secondary70 } = theme.colors;
@@ -26,7 +26,7 @@ export const Category: React.FC<Props> = ({
     <Container {...rest} checked={checked}>
       <Gradient colors={[secondary40, secondary60]}>
         <Content checked={checked} colors={[secondary70, secondary50]}>
-          {hasCheckIcon && <Check checked={checked} />}
+          {hasCheckBox && <Check checked={checked} />}
           <Icon width={48} height={48} />
 
           <Title>{title}</Title>
