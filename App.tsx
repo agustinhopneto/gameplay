@@ -7,6 +7,7 @@ import {
   Rajdhani_500Medium,
 } from '@expo-google-fonts/rajdhani';
 import { StatusBar } from 'react-native';
+import { Background } from './src/components/Background';
 
 import { Routes } from './src/routes';
 
@@ -23,14 +24,14 @@ const App: React.FC = () => {
   }
 
   return (
-    <>
+    <Background>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
       <Routes />
-    </>
+    </Background>
   );
 };
 

@@ -21,7 +21,6 @@ import {
 import PlayerSvg from '../../assets/player.svg';
 import CalendarSvg from '../../assets/calendar.svg';
 import { theme } from '../../global/styles/theme';
-import { ListDivider } from '../ListDivider';
 
 type Props = RectButtonProps & {
   data: AppointmentProps;
@@ -60,7 +59,6 @@ export const Appointment: React.FC<Props> = ({ data, ...rest }) => {
           </Footer>
         </Content>
       </Container>
-      <ListDivider />
     </RectButton>
   );
 };

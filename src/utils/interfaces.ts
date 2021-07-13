@@ -13,3 +13,10 @@ export interface Guild {
   icon: string | null;
   owner: boolean;
 }
+
+export interface Member {
+  id: string;
+  username: string;
+  avatar_url: string;
+  status: string;
+}

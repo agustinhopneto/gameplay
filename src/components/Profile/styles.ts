@@ -5,7 +5,9 @@ export const Container = styled.View`
   flex-direction: row;
 `;
 
-export const Content = styled.View``;
+export const Content = styled.View`
+  margin-left: 20px;
+`;
 
 export const User = styled.View`
   flex-direction: row;

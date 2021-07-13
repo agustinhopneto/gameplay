@@ -26,6 +26,5 @@ export const Content = styled.View`
 `;
 
 export const Appointments = styled(FlatList as new () => FlatList<Appointment>)`
-  padding-top: 8px;
-  margin-bottom: 24px;
+  padding-top: 4px;
 `;

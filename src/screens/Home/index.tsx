@@ -1,14 +1,17 @@
 import React, { useCallback, useState } from 'react';
 
+import { useNavigation } from '@react-navigation/native';
 import { ButtonAdd } from '../../components/ButtonAdd';
 import { CategorySelect } from '../../components/CategorySelect';
 import { ListHeader } from '../../components/ListHeader';
 import { Profile } from '../../components/Profile';
 import { Appointment } from '../../components/Appointment';
+import { Background } from '../../components/Background';
+import { ListDivider } from '../../components/ListDivider';
+
+import { setCategory } from '../../utils/functions';
 
 import { Container, Header, Content, Appointments } from './styles';
-import { Background } from '../../components/Background';
-import { setCategory } from '../../utils/functions';
 
 const appointments = [
   {
@@ -98,14 +101,19 @@ const appointments = [
 ];
 
 export const Home: React.FC = () => {
+  const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const handleCategorySelect = useCallback(
+  const handleSelectCategory = useCallback(
     (categoryId: string) => {
       setSelectedCategory(setCategory(selectedCategory, categoryId) as string);
     },
     [selectedCategory],
   );
+
+  const handleAppointmentDetails = useCallback(() => {
+    navigation.navigate('AppointmentDetails');
+  }, [navigation]);
 
   return (
     <Background>
@@ -117,7 +125,7 @@ export const Home: React.FC = () => {
 
         <CategorySelect
           selectedCategories={selectedCategory}
-          setCategory={handleCategorySelect}
+          setCategory={handleSelectCategory}
         />
 
         <Content>
@@ -127,7 +135,11 @@ export const Home: React.FC = () => {
             data={appointments}
             keyExtractor={item => item.id}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => <Appointment data={item} />}
+            renderItem={({ item }) => (
+              <Appointment data={item} onPress={handleAppointmentDetails} />
+            )}
+            ItemSeparatorComponent={() => <ListDivider />}
+            contentContainerStyle={{ paddingBottom: 48 }}
           />
         </Content>
       </Container>
