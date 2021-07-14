@@ -43,6 +43,10 @@ export const AppointmentCreate: React.FC = () => {
     setOpenGuildsModal(true);
   }, []);
 
+  const handleCloseGuildsModal = useCallback(() => {
+    setOpenGuildsModal(false);
+  }, []);
+
   const handleGuildSelect = useCallback((selectedGuild: Guild) => {
     setGuild(selectedGuild);
     setOpenGuildsModal(false);
@@ -130,14 +134,15 @@ export const AppointmentCreate: React.FC = () => {
             </View>
           </Form>
         </Container>
-        <ModalView visible={openGuildsModal}>
-          <GuildList handleSelectGuild={handleGuildSelect} />
-        </ModalView>
       </KeyboardAvoidingView>
 
       <Footer>
         <Button title="Agendar" />
       </Footer>
+
+      <ModalView visible={openGuildsModal} closeModal={handleCloseGuildsModal}>
+        <GuildList handleSelectGuild={handleGuildSelect} />
+      </ModalView>
     </Background>
   );
 };

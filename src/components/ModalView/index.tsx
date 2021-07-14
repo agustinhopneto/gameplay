@@ -6,15 +6,20 @@ import { Container, Overlay, Content, Bar } from './styles';
 
 type Props = ModalProps & {
   children: ReactNode;
+  closeModal: () => void;
 };
 
-export const ModalView: React.FC<Props> = ({ children, ...rest }) => {
+export const ModalView: React.FC<Props> = ({
+  children,
+  closeModal,
+  ...rest
+}) => {
   return (
-    <Container transparent animationType="slide" {...rest}>
+    <Container transparent statusBarTranslucent animationType="slide" {...rest}>
       <Overlay>
         <Content>
           <Background>
-            <Bar />
+            <Bar onPress={closeModal} />
             {children}
           </Background>
         </Content>
