@@ -10,10 +10,11 @@ import { Background } from '../../components/Background';
 import { ListDivider } from '../../components/ListDivider';
 
 import { setCategory } from '../../utils/functions';
+import { Appointment as AppointmentProps } from '../../utils/interfaces';
 
 import { Container, Header, Content, Appointments } from './styles';
 
-const appointments = [
+const appointments: AppointmentProps[] = [
   {
     id: '1',
     game: 'League of Legends',
@@ -115,12 +116,16 @@ export const Home: React.FC = () => {
     navigation.navigate('AppointmentDetails');
   }, [navigation]);
 
+  const handleCreateAppointment = useCallback(() => {
+    navigation.navigate('AppointmentCreate');
+  }, [navigation]);
+
   return (
     <Background>
       <Container>
         <Header>
           <Profile />
-          <ButtonAdd />
+          <ButtonAdd onPress={handleCreateAppointment} />
         </Header>
 
         <CategorySelect

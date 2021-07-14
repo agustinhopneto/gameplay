@@ -1,11 +1,16 @@
 import styled from 'styled-components/native';
-import { theme } from '../../global/styles/theme';
+import { LinearGradient } from 'expo-linear-gradient';
 
-export const Container = styled.Image`
+export const Container = styled(LinearGradient)`
   width: 64px;
   height: 68px;
   border-radius: 8px;
-  margin-right: 20px;
-  border-width: 1px;
-  border-color: ${theme.colors.secondary60};
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Icon = styled.Image`
+  width: 63px;
+  height: 67px;
+  border-radius: 8px;
 `;

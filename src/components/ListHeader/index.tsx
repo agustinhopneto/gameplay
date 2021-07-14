@@ -6,9 +6,9 @@ type Props = {
   subtitle: string;
 };
 
-export const ListHeader: React.FC<Props> = ({ title, subtitle }) => {
+export const ListHeader: React.FC<Props> = ({ title, subtitle, ...rest }) => {
   return (
-    <Container>
+    <Container {...rest}>
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
     </Container>

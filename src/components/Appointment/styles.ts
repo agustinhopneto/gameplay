@@ -14,6 +14,7 @@ export const Container = styled.View`
 
 export const Content = styled.View`
   flex: 1;
+  margin-left: 20px;
   justify-content: space-between;
 `;
 
