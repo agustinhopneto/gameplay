@@ -5,14 +5,18 @@ import { theme } from '../../global/styles/theme';
 import { Container, Icon } from './styles';
 
 const uri =
-  'https://static.wikia.nocookie.net/leagueoflegends/images/f/f2/League%2B.png/revision/latest?cb=20210516152058';
+  'https://pbs.twimg.com/profile_images/1392925163969200136/wNZYmQXx_400x400.jpg';
 
-export const GuildIcon: React.FC = () => {
+type Props = {
+  url?: string | null;
+};
+
+export const GuildIcon: React.FC<Props> = ({ url }) => {
   const { secondary40, secondary60 } = theme.colors;
 
   return (
     <Container colors={[secondary40, secondary60]}>
-      <Icon source={{ uri }} resizeMode="cover" />
+      <Icon source={{ uri: url || uri }} resizeMode="cover" />
     </Container>
   );
 };

@@ -34,7 +34,7 @@ export const Appointment: React.FC<Props> = ({ data, ...rest }) => {
   return (
     <RectButton {...rest}>
       <Container>
-        <GuildIcon />
+        <GuildIcon url={data.guild.icon} />
 
         <Content>
           <Header>

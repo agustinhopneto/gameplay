@@ -12,7 +12,7 @@ import {
 export const Profile: React.FC = () => {
   return (
     <Container>
-      <Avatar urlImage="https://github.com/agustinhopneto.png" />
+      <Avatar />
 
       <Content>
         <User>

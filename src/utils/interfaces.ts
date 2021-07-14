@@ -10,7 +10,7 @@ export interface Appointment {
 export interface Guild {
   id: string;
   name: string;
-  icon: string | null;
+  icon: string | null | undefined;
   owner: boolean;
 }
 

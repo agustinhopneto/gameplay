@@ -14,7 +14,7 @@ type Props = RectButtonProps & {
 export const Guild: React.FC<Props> = ({ data, ...rest }) => {
   return (
     <Container {...rest}>
-      <GuildIcon />
+      <GuildIcon url={data.icon} />
 
       <Content>
         <Title>{data.name}</Title>

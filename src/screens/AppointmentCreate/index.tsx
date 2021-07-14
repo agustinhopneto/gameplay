@@ -14,8 +14,7 @@ import { Button } from '../../components/Button';
 import { ModalView } from '../../components/ModalView';
 import { GuildList } from '../GuildList';
 import { Guild } from '../../utils/interfaces';
-
-// import { GuildIcon } from '../../components/GuildIcon';
+import { GuildIcon } from '../../components/GuildIcon';
 
 import {
   Container,
@@ -34,7 +33,6 @@ import {
   FieldHeader,
   Footer,
 } from './styles';
-import { GuildIcon } from '../../components/GuildIcon';
 
 export const AppointmentCreate: React.FC = () => {
   const [description, setDescription] = useState('');
@@ -82,7 +80,7 @@ export const AppointmentCreate: React.FC = () => {
             <Select colors={[secondary40, secondary60]}>
               <SelectContent onPress={handleOpenGuildsModal}>
                 {guild.id ? (
-                  <GuildIcon />
+                  <GuildIcon url={guild.icon} />
                 ) : (
                   <EmptyImageBorder colors={[secondary40, secondary60]}>
                     <EmptyImage colors={[secondary70, secondary50]} />
