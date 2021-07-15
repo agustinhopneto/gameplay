@@ -1,7 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
-
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import uuid from 'react-native-uuid';
+import { useNavigation } from '@react-navigation/native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { COLLECTION_APPOINTMENTS } from '../../configs/storage';
 import { setCategory } from '../../utils/functions';
 import { theme } from '../../global/styles/theme';
 
@@ -35,9 +40,68 @@ import {
 } from './styles';
 
 export const AppointmentCreate: React.FC = () => {
-  const [description, setDescription] = useState('');
+  const navigation = useNavigation();
+
   const [openGuildsModal, setOpenGuildsModal] = useState(false);
   const [guild, setGuild] = useState<Guild>({} as Guild);
+  const [canSave, setCanSave] = useState(false);
+
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [day, setDay] = useState('');
+  const [month, setMonth] = useState('');
+  const [hour, setHour] = useState('');
+  const [minute, setMinute] = useState('');
+  const [description, setDescription] = useState('');
+
+  const { highlight, secondary40, secondary50, secondary60, secondary70 } =
+    theme.colors;
+
+  useEffect(() => {
+    const isFilled =
+      ![selectedCategory, day, month, hour, minute, description].includes('') &&
+      guild.id;
+
+    if (isFilled) {
+      setCanSave(true);
+    } else {
+      setCanSave(false);
+    }
+  }, [selectedCategory, day, month, hour, minute, description, guild]);
+
+  const handleSave = useCallback(async () => {
+    const formattedDate = `${day.padStart(2, '0')}/${month.padStart(
+      2,
+      '0',
+    )} às ${hour}:${minute}h`;
+
+    const newAppointment = {
+      id: uuid.v4(),
+      guild,
+      category: selectedCategory,
+      date: formattedDate,
+      description,
+    };
+
+    const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+
+    const appointments = storage ? JSON.parse(storage) : [];
+
+    await AsyncStorage.setItem(
+      COLLECTION_APPOINTMENTS,
+      JSON.stringify([...appointments, newAppointment]),
+    );
+
+    navigation.navigate('Home');
+  }, [
+    guild,
+    selectedCategory,
+    day,
+    month,
+    hour,
+    minute,
+    description,
+    navigation,
+  ]);
 
   const handleOpenGuildsModal = useCallback(() => {
     setOpenGuildsModal(true);
@@ -51,11 +115,6 @@ export const AppointmentCreate: React.FC = () => {
     setGuild(selectedGuild);
     setOpenGuildsModal(false);
   }, []);
-
-  const { highlight, secondary40, secondary50, secondary60, secondary70 } =
-    theme.colors;
-
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleSelectCategory = useCallback(
     (categoryId: string) => {
@@ -104,18 +163,30 @@ export const AppointmentCreate: React.FC = () => {
               <View>
                 <FieldLabel>Dia e mês</FieldLabel>
                 <FieldColumn>
-                  <SmallInput maxLength={2} />
+                  <SmallInput onChangeText={setDay} value={day} maxLength={2} />
                   <Divider>/</Divider>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    onChangeText={setMonth}
+                    value={month}
+                    maxLength={2}
+                  />
                 </FieldColumn>
               </View>
 
               <View>
                 <FieldLabel>Horário</FieldLabel>
                 <FieldColumn>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    onChangeText={setHour}
+                    value={hour}
+                    maxLength={2}
+                  />
                   <Divider>:</Divider>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    onChangeText={setMinute}
+                    value={minute}
+                    maxLength={2}
+                  />
                 </FieldColumn>
               </View>
             </Field>
@@ -130,6 +201,7 @@ export const AppointmentCreate: React.FC = () => {
                 multiline
                 numberOfLines={3}
                 onChangeText={setDescription}
+                value={description}
               />
             </View>
           </Form>
@@ -137,7 +209,7 @@ export const AppointmentCreate: React.FC = () => {
       </KeyboardAvoidingView>
 
       <Footer>
-        <Button title="Agendar" />
+        <Button title="Agendar" enabled={canSave} onPress={handleSave} />
       </Footer>
 
       <ModalView visible={openGuildsModal} closeModal={handleCloseGuildsModal}>
