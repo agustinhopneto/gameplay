@@ -84,7 +84,7 @@ export const AppointmentCreate: React.FC = () => {
             <Select colors={[secondary40, secondary60]}>
               <SelectContent onPress={handleOpenGuildsModal}>
                 {guild.id ? (
-                  <GuildIcon url={guild.icon} />
+                  <GuildIcon guildId={guild.id} iconId={guild.icon} />
                 ) : (
                   <EmptyImageBorder colors={[secondary40, secondary60]}>
                     <EmptyImage colors={[secondary70, secondary50]} />

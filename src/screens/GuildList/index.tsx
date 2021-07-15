@@ -1,48 +1,50 @@
-import React from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Guild } from '../../components/Guild';
 import { Guild as GuildProps } from '../../utils/interfaces';
 import { ListDivider } from '../../components/ListDivider';
 
-import { Container, List } from './styles';
+import { api } from '../../services/api';
 
-const guilds: GuildProps[] = [
-  {
-    id: '1',
-    name: 'Sushi Restaurant',
-    icon: null,
-    owner: true,
-  },
-  {
-    id: '2',
-    name: 'Sushi Restaurant',
-    icon: null,
-    owner: true,
-  },
-  {
-    id: '3',
-    name: 'Sushi Restaurant',
-    icon: null,
-    owner: true,
-  },
-];
+import { Container, List } from './styles';
+import { Load } from '../../components/Load';
 
 type Props = {
   handleSelectGuild: (guild: GuildProps) => void;
 };
 
 export const GuildList: React.FC<Props> = ({ handleSelectGuild }) => {
+  const [guilds, setGuilds] = useState<GuildProps[]>([] as GuildProps[]);
+  const [loading, setLoading] = useState(true);
+
+  const loadGuilds = useCallback(async () => {
+    setLoading(true);
+    const response = await api.get('/users/@me/guilds');
+
+    setGuilds(response.data);
+
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    loadGuilds();
+  }, [loadGuilds]);
+
   return (
     <Container>
-      <List
-        data={guilds}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <Guild data={item} onPress={() => handleSelectGuild(item)} />
-        )}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <ListDivider />}
-        contentContainerStyle={{ paddingBottom: 24 }}
-      />
+      {loading ? (
+        <Load />
+      ) : (
+        <List
+          data={guilds}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Guild data={item} onPress={() => handleSelectGuild(item)} />
+          )}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <ListDivider />}
+          contentContainerStyle={{ paddingBottom: 24 }}
+        />
+      )}
     </Container>
   );
 };

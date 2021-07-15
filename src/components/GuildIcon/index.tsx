@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { theme } from '../../global/styles/theme';
 
 import { Container, Icon } from './styles';
 
-const uri =
-  'https://pbs.twimg.com/profile_images/1392925163969200136/wNZYmQXx_400x400.jpg';
+import DiscordSvg from '../../assets/discord.svg';
+
+const { CDN_IMAGE } = process.env;
 
 type Props = {
-  url?: string | null;
+  guildId: string;
+  iconId: string | null | undefined;
 };
 
-export const GuildIcon: React.FC<Props> = ({ url }) => {
+export const GuildIcon: React.FC<Props> = ({ guildId, iconId }) => {
   const { secondary40, secondary60 } = theme.colors;
+
+  const imageUrl = useMemo(() => {
+    return `${CDN_IMAGE}/icons/${guildId}/${iconId}.png`;
+  }, [guildId, iconId]);
 
   return (
     <Container colors={[secondary40, secondary60]}>
-      <Icon source={{ uri: url || uri }} resizeMode="cover" />
+      {iconId ? (
+        <Icon source={{ uri: imageUrl }} resizeMode="cover" />
+      ) : (
+        <DiscordSvg width={40} height={40} />
+      )}
     </Container>
   );
 };
