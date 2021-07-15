@@ -20,3 +20,12 @@ export interface Member {
   avatar_url: string;
   status: string;
 }
+
+export interface User {
+  id: string;
+  username: string;
+  firstName: string;
+  avatar: string;
+  email: string;
+  token: string;
+}

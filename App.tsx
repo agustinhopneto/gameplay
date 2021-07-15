@@ -6,10 +6,17 @@ import {
   Rajdhani_700Bold,
   Rajdhani_500Medium,
 } from '@expo-google-fonts/rajdhani';
-import { StatusBar } from 'react-native';
+import { StatusBar, LogBox } from 'react-native';
+
 import { Background } from './src/components/Background';
 
+import { AuthProvider } from './src/hooks/auth';
+
 import { Routes } from './src/routes';
+
+LogBox.ignoreLogs([
+  'You are not currently signed in to Expo on your development machine.',
+]);
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -30,7 +37,9 @@ const App: React.FC = () => {
         backgroundColor="transparent"
         translucent
       />
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </Background>
   );
 };
