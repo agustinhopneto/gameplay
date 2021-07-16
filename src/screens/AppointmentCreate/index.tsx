@@ -72,7 +72,7 @@ export const AppointmentCreate: React.FC = () => {
     const formattedDate = `${day.padStart(2, '0')}/${month.padStart(
       2,
       '0',
-    )} às ${hour}:${minute}h`;
+    )} às ${hour.padStart(2, '0')}:${minute.padStart(2, '0')}h`;
 
     const newAppointment = {
       id: uuid.v4(),

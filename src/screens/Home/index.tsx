@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { useNavigation } from '@react-navigation/native';
 import { ButtonAdd } from '../../components/ButtonAdd';
 import { CategorySelect } from '../../components/CategorySelect';
 import { ListHeader } from '../../components/ListHeader';
@@ -11,99 +12,40 @@ import { ListDivider } from '../../components/ListDivider';
 
 import { setCategory } from '../../utils/functions';
 import { Appointment as AppointmentProps } from '../../utils/interfaces';
+import { COLLECTION_APPOINTMENTS } from '../../configs/storage';
 
 import { Container, Header, Content, Appointments } from './styles';
-
-const appointments: AppointmentProps[] = [
-  {
-    id: '1',
-    game: 'League of Legends',
-    guild: {
-      id: '1',
-      name: 'Lendários',
-      icon: null,
-      owner: true,
-    },
-    category: '1',
-    date: '22/06 às 20:40h',
-    description:
-      'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-  },
-  {
-    id: '2',
-    game: 'League of Legends',
-    guild: {
-      id: '1',
-      name: 'Lendários',
-      icon: null,
-      owner: true,
-    },
-    category: '1',
-    date: '22/06 às 20:40h',
-    description:
-      'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-  },
-  {
-    id: '3',
-    game: 'League of Legends',
-    guild: {
-      id: '1',
-      name: 'Lendários',
-      icon: null,
-      owner: true,
-    },
-    category: '1',
-    date: '22/06 às 20:40h',
-    description:
-      'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-  },
-  {
-    id: '4',
-    game: 'League of Legends',
-    guild: {
-      id: '1',
-      name: 'Lendários',
-      icon: null,
-      owner: true,
-    },
-    category: '1',
-    date: '22/06 às 20:40h',
-    description:
-      'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-  },
-  {
-    id: '5',
-    game: 'League of Legends',
-    guild: {
-      id: '1',
-      name: 'Lendários',
-      icon: null,
-      owner: true,
-    },
-    category: '1',
-    date: '22/06 às 20:40h',
-    description:
-      'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-  },
-  {
-    id: '6',
-    game: 'League of Legends',
-    guild: {
-      id: '1',
-      name: 'Lendários',
-      icon: null,
-      owner: true,
-    },
-    category: '1',
-    date: '22/06 às 20:40h',
-    description:
-      'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-  },
-];
+import { Load } from '../../components/Load';
 
 export const Home: React.FC = () => {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [appointments, setAppointments] = useState<AppointmentProps[]>([]);
+
+  const loadAppointments = useCallback(async () => {
+    setLoading(true);
+    const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+
+    let appointmentsData: AppointmentProps[] = storage
+      ? JSON.parse(storage)
+      : [];
+
+    if (selectedCategory) {
+      appointmentsData = appointmentsData.filter(
+        item => item.category === selectedCategory,
+      );
+    }
+
+    setAppointments(appointmentsData);
+    setLoading(false);
+  }, [selectedCategory]);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadAppointments();
+    }, [loadAppointments]),
+  );
 
   const handleSelectCategory = useCallback(
     (categoryId: string) => {
@@ -112,9 +54,12 @@ export const Home: React.FC = () => {
     [selectedCategory],
   );
 
-  const handleAppointmentDetails = useCallback(() => {
-    navigation.navigate('AppointmentDetails');
-  }, [navigation]);
+  const handleAppointmentDetails = useCallback(
+    (appointment: AppointmentProps) => {
+      navigation.navigate('AppointmentDetails', { appointment });
+    },
+    [navigation],
+  );
 
   const handleCreateAppointment = useCallback(() => {
     navigation.navigate('AppointmentCreate');
@@ -134,18 +79,28 @@ export const Home: React.FC = () => {
         />
 
         <Content>
-          <ListHeader title="Partidas agendadas" subtitle="Total 6" />
-
-          <Appointments
-            data={appointments}
-            keyExtractor={item => item.id}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <Appointment data={item} onPress={handleAppointmentDetails} />
-            )}
-            ItemSeparatorComponent={() => <ListDivider />}
-            contentContainerStyle={{ paddingBottom: 48 }}
+          <ListHeader
+            title="Partidas agendadas"
+            subtitle={`Total ${appointments.length}`}
           />
+
+          {loading ? (
+            <Load />
+          ) : (
+            <Appointments
+              data={appointments}
+              keyExtractor={item => item.id}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <Appointment
+                  data={item}
+                  onPress={() => handleAppointmentDetails(item)}
+                />
+              )}
+              ItemSeparatorComponent={() => <ListDivider />}
+              contentContainerStyle={{ paddingBottom: 48 }}
+            />
+          )}
         </Content>
       </Container>
     </Background>

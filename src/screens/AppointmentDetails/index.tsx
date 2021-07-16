@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { Fontisto } from '@expo/vector-icons';
+import { useRoute } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
+
+import { Alert, Platform, Share } from 'react-native';
 
 import { theme } from '../../global/styles/theme';
-import { Member } from '../../utils/interfaces';
+import { Appointment, Member } from '../../utils/interfaces';
+import { api } from '../../services/api';
+
 import bannerImg from '../../assets/banner.png';
 
 import { Background } from '../../components/Background';
 import { Header } from '../../components/Header';
 import { ListHeader } from '../../components/ListHeader';
 import { Member as MemberItem } from '../../components/Member';
+import { ListDivider } from '../../components/ListDivider';
+import { ButtonIcon } from '../../components/ButtonIcon';
+import { Load } from '../../components/Load';
 
 import {
   Banner,
@@ -20,67 +29,113 @@ import {
   Content,
   Footer,
 } from './styles';
-import { ListDivider } from '../../components/ListDivider';
-import { ButtonIcon } from '../../components/ButtonIcon';
 
-const members: Member[] = [
-  {
-    id: '1',
-    username: 'Agustinho Neto',
-    avatar_url: 'https://github.com/agustinhopneto.png',
-    status: 'online',
-  },
-  {
-    id: '2',
-    username: 'Diego Fernandes',
-    avatar_url: 'https://github.com/diego3g.png',
-    status: 'online',
-  },
-  {
-    id: '3',
-    username: 'Alexsander Lira',
-    avatar_url: 'https://github.com/alelira.png',
-    status: 'offline',
-  },
-];
+type Params = {
+  appointment: Appointment;
+};
+
+type GuildWdget = {
+  id: string;
+  name: string;
+  instant_invite: string;
+  members: Member[];
+  presence_count: number;
+};
 
 export const AppointmentDetails: React.FC = () => {
+  const route = useRoute();
+  const { appointment } = route.params as Params;
+
+  const [loading, setLoading] = useState(false);
+  const [widget, setWidget] = useState<GuildWdget>({} as GuildWdget);
+
+  const loadGuildWidget = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      const response = await api.get<GuildWdget>(
+        `/guilds/${appointment.guild.id}/widget.json`,
+      );
+
+      setWidget(response.data);
+    } catch (error) {
+      Alert.alert(
+        'Verifique as configurações do servidor! Será que o Widget está habilitado?',
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, [appointment]);
+
+  useEffect(() => {
+    loadGuildWidget();
+  }, [loadGuildWidget]);
+
+  const handleShareInvitation = useCallback(() => {
+    const message =
+      Platform.OS === 'ios'
+        ? `Junte-se a ${appointment.guild.name}`
+        : widget.instant_invite;
+
+    Share.share({
+      message,
+      url: widget.instant_invite,
+    });
+  }, [widget, appointment]);
+
+  const handleOpenGuild = useCallback(() => {
+    Linking.openURL(widget.instant_invite);
+  }, [widget]);
+
   return (
     <Background>
       <Header
         title="Detalhes"
         action={
-          <BorderlessButton>
-            <Fontisto name="share" size={24} color={theme.colors.primary} />
-          </BorderlessButton>
+          widget.instant_invite && (
+            <BorderlessButton onPress={handleShareInvitation}>
+              <Fontisto name="share" size={24} color={theme.colors.primary} />
+            </BorderlessButton>
+          )
         }
       />
 
-      <Banner source={bannerImg}>
-        <BannerContent>
-          <Title>League of Legends</Title>
-          <Subtitle>
-            É hoje que vamos chegar ao challenger sem perder uma partida da md10
-          </Subtitle>
-        </BannerContent>
-      </Banner>
+      {loading ? (
+        <Load />
+      ) : (
+        <>
+          <Banner source={bannerImg}>
+            <BannerContent>
+              <Title>{appointment.guild.name}</Title>
+              <Subtitle>{appointment.description}</Subtitle>
+            </BannerContent>
+          </Banner>
 
-      <Content>
-        <ListHeader title="Jogadores" subtitle="Total 3" />
+          <Content>
+            <ListHeader
+              title="Jogadores"
+              subtitle={`Total ${widget.presence_count || 0}`}
+            />
 
-        <Members
-          data={members}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => <MemberItem data={item} />}
-          ItemSeparatorComponent={() => <ListDivider size="small" />}
-          contentContainerStyle={{ paddingBottom: 48 }}
-          showsVerticalScrollIndicator={false}
-        />
-      </Content>
+            <Members
+              data={widget.members}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => <MemberItem data={item} />}
+              ItemSeparatorComponent={() => <ListDivider size="small" />}
+              contentContainerStyle={{ paddingBottom: 48 }}
+              showsVerticalScrollIndicator={false}
+            />
+          </Content>
 
-      <Footer>
-        <ButtonIcon title="Entrar no Servidor" />
-      </Footer>
+          <Footer>
+            <ButtonIcon
+              title="Entrar no Servidor"
+              onPress={handleOpenGuild}
+              enabled={!!widget.instant_invite}
+            />
+          </Footer>
+        </>
+      )}
     </Background>
   );
 };
