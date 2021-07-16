@@ -1,4 +1,4 @@
-|> Toasts
+|> Toasts - ✅
 |> Modal de Logout
 |> Deletar agendamento - ✅
 |> Componente de lista vazia - ✅
