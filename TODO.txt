@@ -2,7 +2,9 @@
   -> Data válida
   -> Horário válido
   -> Data e horário é no futuro
-|> Deletar agendamento
+|> Deletar agendamento - ✅
 |> Toasts
 |> Modal de Logout
 |> Adicionar o jogo no Agendamento (RAWG API)
+|> Componente de lista vazia
+|> Loading animado personalizado

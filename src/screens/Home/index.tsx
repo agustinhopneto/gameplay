@@ -65,6 +65,20 @@ export const Home: React.FC = () => {
     navigation.navigate('AppointmentCreate');
   }, [navigation]);
 
+  const handleDeleteAppointment = useCallback(
+    async (id: string) => {
+      const newAppointments = appointments.filter(item => item.id !== id);
+
+      await AsyncStorage.setItem(
+        COLLECTION_APPOINTMENTS,
+        JSON.stringify(newAppointments),
+      );
+
+      setAppointments(newAppointments);
+    },
+    [appointments],
+  );
+
   return (
     <Background>
       <Container>
@@ -95,6 +109,7 @@ export const Home: React.FC = () => {
                 <Appointment
                   data={item}
                   onPress={() => handleAppointmentDetails(item)}
+                  handleDelete={() => handleDeleteAppointment(item.id)}
                 />
               )}
               ItemSeparatorComponent={() => <ListDivider />}
