@@ -1,10 +1,10 @@
+|> Toasts
+|> Modal de Logout
+|> Deletar agendamento - ✅
+|> Componente de lista vazia - ✅
+|> Loading animado personalizado - ✅
+|> Adicionar o jogo no Agendamento (RAWG API)
 |> Validar Data e Horário
   -> Data válida
   -> Horário válido
   -> Data e horário é no futuro
-|> Deletar agendamento - ✅
-|> Toasts
-|> Modal de Logout
-|> Adicionar o jogo no Agendamento (RAWG API)
-|> Componente de lista vazia - ✅
-|> Loading animado personalizado
