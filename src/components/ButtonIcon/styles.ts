@@ -26,11 +26,6 @@ export const IconWrapper = styled.View`
   border-color: ${theme.colors.line};
 `;
 
-export const Icon = styled.Image`
-  width: 24px;
-  height: 18px;
-`;
-
 export const ButtonText = styled.Text`
   flex: 1;
   color: ${theme.colors.heading};

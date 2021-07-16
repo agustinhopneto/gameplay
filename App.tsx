@@ -17,6 +17,7 @@ import { Routes } from './src/routes';
 LogBox.ignoreLogs([
   'You are not currently signed in to Expo on your development machine.',
   'componentWillReceiveProps has been renamed, and is not recommended for use.',
+  'componentWillMount has been renamed, and is not recommended for use.',
 ]);
 
 const App: React.FC = () => {

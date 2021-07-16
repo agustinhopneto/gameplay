@@ -5,15 +5,19 @@ import playAnimation from '../../assets/loading.json';
 
 import { Container } from './styles';
 
-export const Load: React.FC = () => {
+type Props = {
+  full?: boolean;
+};
+
+export const Load: React.FC<Props> = ({ full = true }) => {
   return (
-    <Container>
+    <Container full={full}>
       <LottieView
         source={playAnimation}
-        style={{ width: 150, height: 150 }}
+        style={{ width: full ? 108 : 54, height: full ? 108 : 54 }}
         renderMode="AUTOMATIC"
         autoPlay
-        duration={2800}
+        duration={2500}
       />
     </Container>
   );

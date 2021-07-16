@@ -19,7 +19,7 @@ export const ModalView: React.FC<Props> = ({
       <Overlay>
         <Content>
           <Background>
-            <Bar onPress={closeModal} />
+            <Bar onPress={closeModal} activeOpacity={0.6} />
             {children}
           </Background>
         </Content>

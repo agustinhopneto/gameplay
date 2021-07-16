@@ -1,9 +1,16 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
-export const Container = styled.View`
-  flex: 1;
+interface Props {
+  full: boolean;
+}
+
+export const Container = styled.View<Props>`
   align-items: center;
   justify-content: center;
-`;
 
-export const Loading = styled.ActivityIndicator``;
+  ${props =>
+    props.full &&
+    css`
+      flex: 1;
+    `}
+`;

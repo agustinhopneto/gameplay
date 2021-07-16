@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, Alert, ActivityIndicator } from 'react-native';
+import { View, Alert } from 'react-native';
 
 import { ButtonIcon } from '../../components/ButtonIcon';
 import { Background } from '../../components/Background';
@@ -7,8 +7,9 @@ import { Background } from '../../components/Background';
 import { Container, IntroImage, Content, Title, Subtitle } from './styles';
 
 import illustrationImg from '../../assets/illustration.png';
+
 import { useAuth } from '../../hooks/auth';
-import { theme } from '../../global/styles/theme';
+import { Load } from '../../components/Load';
 
 export const SignIn: React.FC = () => {
   const { signIn, loading } = useAuth();
@@ -39,7 +40,7 @@ export const SignIn: React.FC = () => {
           </View>
 
           {loading ? (
-            <ActivityIndicator color={theme.colors.primary} />
+            <Load full={false} />
           ) : (
             <ButtonIcon
               enabled
