@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Alert, TouchableOpacity } from 'react-native';
+
 import { useAuth } from '../../hooks/auth';
 import { Avatar } from '../Avatar';
 import {
@@ -11,11 +13,28 @@ import {
 } from './styles';
 
 export const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = useCallback(() => {
+    Alert.alert('Logout', 'Deseja sair do GamePlay?', [
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+      {
+        text: 'Sim',
+        onPress: async () => {
+          await signOut();
+        },
+      },
+    ]);
+  }, [signOut]);
 
   return (
     <Container>
-      <Avatar urlImage={user.avatar} />
+      <TouchableOpacity activeOpacity={0.6} onPress={handleSignOut}>
+        <Avatar urlImage={user.avatar} />
+      </TouchableOpacity>
 
       <Content>
         <User>

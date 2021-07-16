@@ -41,7 +41,11 @@ export const SignIn: React.FC = () => {
           {loading ? (
             <ActivityIndicator color={theme.colors.primary} />
           ) : (
-            <ButtonIcon title="Entrar com Discord" onPress={handleSignIn} />
+            <ButtonIcon
+              enabled
+              title="Entrar com Discord"
+              onPress={handleSignIn}
+            />
           )}
         </Content>
       </Container>

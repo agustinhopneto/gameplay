@@ -10,7 +10,6 @@ import * as AuthSession from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { User } from '../utils/interfaces';
-
 import { api } from '../services/api';
 
 import { COLLECTION_USERS } from '../configs/storage';
@@ -26,6 +25,7 @@ type AuthContextData = {
   user: User;
   loading: boolean;
   signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 type AuthProviderProps = {
@@ -97,8 +97,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
+  const signOut = useCallback(async () => {
+    setUser({} as User);
+    await AsyncStorage.removeItem(COLLECTION_USERS);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, signIn, loading }}>
+    <AuthContext.Provider value={{ user, signIn, signOut, loading }}>
       {children}
     </AuthContext.Provider>
   );
