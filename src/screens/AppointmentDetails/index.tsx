@@ -29,6 +29,7 @@ import {
   Content,
   Footer,
 } from './styles';
+import { Empty } from '../../components/Empty';
 
 type Params = {
   appointment: Appointment;
@@ -117,14 +118,18 @@ export const AppointmentDetails: React.FC = () => {
               subtitle={`Total ${widget.presence_count || 0}`}
             />
 
-            <Members
-              data={widget.members}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => <MemberItem data={item} />}
-              ItemSeparatorComponent={() => <ListDivider size="small" />}
-              contentContainerStyle={{ paddingBottom: 48 }}
-              showsVerticalScrollIndicator={false}
-            />
+            {!widget.members ? (
+              <Empty title="Ops... Não foi possível carregar os membros dessa Guild..." />
+            ) : (
+              <Members
+                data={widget.members}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <MemberItem data={item} />}
+                ItemSeparatorComponent={() => <ListDivider size="small" />}
+                contentContainerStyle={{ paddingBottom: 48 }}
+                showsVerticalScrollIndicator={false}
+              />
+            )}
           </Content>
 
           <Footer>

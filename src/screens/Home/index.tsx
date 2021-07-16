@@ -99,11 +99,11 @@ export const Home: React.FC = () => {
             subtitle={`Total ${appointments.length}`}
           />
 
-          {!appointments.length && (
-            <Empty title="Ops... Parece que você não possui partidas marcadas..." />
+          {!appointments.length && !loading && (
+            <Empty title="Ops... Parece que você não possui partidas agendadas..." />
           )}
 
-          {loading && <Load />}
+          {loading && !appointments.length && <Load />}
 
           {!loading && !!appointments.length && (
             <Appointments

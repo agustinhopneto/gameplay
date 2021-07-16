@@ -6,5 +6,5 @@
 |> Toasts
 |> Modal de Logout
 |> Adicionar o jogo no Agendamento (RAWG API)
-|> Componente de lista vazia
+|> Componente de lista vazia - ✅
 |> Loading animado personalizado

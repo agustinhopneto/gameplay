@@ -7,6 +7,7 @@ import { api } from '../../services/api';
 
 import { Container, List } from './styles';
 import { Load } from '../../components/Load';
+import { Empty } from '../../components/Empty';
 
 type Props = {
   handleSelectGuild: (guild: GuildProps) => void;
@@ -31,9 +32,13 @@ export const GuildList: React.FC<Props> = ({ handleSelectGuild }) => {
 
   return (
     <Container>
-      {loading ? (
-        <Load />
-      ) : (
+      {loading && !guilds.length && <Load />}
+
+      {!loading && !guilds.length && (
+        <Empty title="Ops... Não foi possível carregar suas Guilds..." />
+      )}
+
+      {!loading && !!guilds.length && (
         <List
           data={guilds}
           keyExtractor={item => item.id}
