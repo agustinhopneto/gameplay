@@ -38,6 +38,7 @@ import {
   FieldHeader,
   Footer,
 } from './styles';
+import { useToast } from '../../hooks/toast';
 
 export const AppointmentCreate: React.FC = () => {
   const navigation = useNavigation();
@@ -52,6 +53,8 @@ export const AppointmentCreate: React.FC = () => {
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
   const [description, setDescription] = useState('');
+
+  const { addToast } = useToast();
 
   const { highlight, secondary40, secondary50, secondary60, secondary70 } =
     theme.colors;
@@ -92,6 +95,12 @@ export const AppointmentCreate: React.FC = () => {
     );
 
     navigation.navigate('Home');
+
+    addToast({
+      type: 'success',
+      title: 'Sucesso!',
+      description: 'Seu agendamento foi criado!',
+    });
   }, [
     guild,
     selectedCategory,
@@ -101,6 +110,7 @@ export const AppointmentCreate: React.FC = () => {
     minute,
     description,
     navigation,
+    addToast,
   ]);
 
   const handleOpenGuildsModal = useCallback(() => {

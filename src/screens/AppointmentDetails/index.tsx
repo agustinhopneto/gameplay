@@ -4,7 +4,7 @@ import { Fontisto } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-import { Alert, Platform, Share } from 'react-native';
+import { Platform, Share } from 'react-native';
 
 import { theme } from '../../global/styles/theme';
 import { Appointment, Member } from '../../utils/interfaces';
@@ -30,6 +30,7 @@ import {
   Footer,
 } from './styles';
 import { Empty } from '../../components/Empty';
+import { useToast } from '../../hooks/toast';
 
 type Params = {
   appointment: Appointment;
@@ -50,6 +51,8 @@ export const AppointmentDetails: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [widget, setWidget] = useState<GuildWdget>({} as GuildWdget);
 
+  const { addToast } = useToast();
+
   const loadGuildWidget = useCallback(async () => {
     try {
       setLoading(true);
@@ -60,13 +63,15 @@ export const AppointmentDetails: React.FC = () => {
 
       setWidget(response.data);
     } catch (error) {
-      Alert.alert(
-        'Verifique as configurações do servidor! Será que o Widget está habilitado?',
-      );
+      addToast({
+        type: 'info',
+        title: 'Widget desabilitado',
+        description: 'Por favor, habilite o Widget do servidor!',
+      });
     } finally {
       setLoading(false);
     }
-  }, [appointment]);
+  }, [appointment, addToast]);
 
   useEffect(() => {
     loadGuildWidget();

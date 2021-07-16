@@ -13,6 +13,7 @@ import { Background } from './src/components/Background';
 import { AuthProvider } from './src/hooks/auth';
 
 import { Routes } from './src/routes';
+import { ToastProvider } from './src/hooks/toast';
 
 LogBox.ignoreLogs([
   'You are not currently signed in to Expo on your development machine.',
@@ -39,9 +40,11 @@ const App: React.FC = () => {
         backgroundColor="transparent"
         translucent
       />
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </ToastProvider>
     </Background>
   );
 };

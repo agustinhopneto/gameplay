@@ -10,19 +10,21 @@ import { Appointment } from '../../components/Appointment';
 import { Background } from '../../components/Background';
 import { ListDivider } from '../../components/ListDivider';
 import { Empty } from '../../components/Empty';
+import { Load } from '../../components/Load';
 
 import { setCategory } from '../../utils/functions';
 import { Appointment as AppointmentProps } from '../../utils/interfaces';
 import { COLLECTION_APPOINTMENTS } from '../../configs/storage';
 
 import { Container, Header, Content, Appointments } from './styles';
-import { Load } from '../../components/Load';
+import { useToast } from '../../hooks/toast';
 
 export const Home: React.FC = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [appointments, setAppointments] = useState<AppointmentProps[]>([]);
+  const { addToast } = useToast();
 
   const loadAppointments = useCallback(async () => {
     setLoading(true);
@@ -76,8 +78,14 @@ export const Home: React.FC = () => {
       );
 
       setAppointments(newAppointments);
+
+      addToast({
+        type: 'info',
+        title: 'Agendamento excluído',
+        description: 'Seu agendamento foi desmarcado!',
+      });
     },
-    [appointments],
+    [appointments, addToast],
   );
 
   return (
