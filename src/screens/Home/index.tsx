@@ -9,6 +9,7 @@ import { Profile } from '../../components/Profile';
 import { Appointment } from '../../components/Appointment';
 import { Background } from '../../components/Background';
 import { ListDivider } from '../../components/ListDivider';
+import { Empty } from '../../components/Empty';
 
 import { setCategory } from '../../utils/functions';
 import { Appointment as AppointmentProps } from '../../utils/interfaces';
@@ -98,9 +99,13 @@ export const Home: React.FC = () => {
             subtitle={`Total ${appointments.length}`}
           />
 
-          {loading ? (
-            <Load />
-          ) : (
+          {!appointments.length && (
+            <Empty title="Ops... Parece que você não possui partidas marcadas..." />
+          )}
+
+          {loading && <Load />}
+
+          {!loading && !!appointments.length && (
             <Appointments
               data={appointments}
               keyExtractor={item => item.id}
