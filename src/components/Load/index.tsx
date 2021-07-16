@@ -1,12 +1,20 @@
 import React from 'react';
-import { theme } from '../../global/styles/theme';
+import LottieView from 'lottie-react-native';
 
-import { Container, Loading } from './styles';
+import playAnimation from '../../assets/loading.json';
+
+import { Container } from './styles';
 
 export const Load: React.FC = () => {
   return (
     <Container>
-      <Loading size="large" color={theme.colors.primary} />
+      <LottieView
+        source={playAnimation}
+        style={{ width: 150, height: 150 }}
+        renderMode="AUTOMATIC"
+        autoPlay
+        duration={2800}
+      />
     </Container>
   );
 };
