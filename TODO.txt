@@ -3,7 +3,7 @@
 |> Deletar agendamento - ✅
 |> Componente de lista vazia - ✅
 |> Loading animado personalizado - ✅
-|> Adicionar o jogo no Agendamento (RAWG API)
+|> Adicionar o jogo no Agendamento (RAWG API) - ✅
 |> Validar Data e Horário
   -> Data válida
   -> Horário válido
