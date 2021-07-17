@@ -65,7 +65,7 @@ export const Appointment: React.FC<Props> = ({
               <Category>{category.title}</Category>
             </Header>
 
-            <Game>{data.game}</Game>
+            <Game>{data.game.name}</Game>
 
             <Footer>
               <DateInfo>

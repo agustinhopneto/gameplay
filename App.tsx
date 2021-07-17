@@ -19,6 +19,7 @@ LogBox.ignoreLogs([
   'You are not currently signed in to Expo on your development machine.',
   'componentWillReceiveProps has been renamed, and is not recommended for use.',
   'componentWillMount has been renamed, and is not recommended for use.',
+  'Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.',
 ]);
 
 const App: React.FC = () => {

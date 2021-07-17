@@ -23,7 +23,7 @@ export const Form = styled.View`
 `;
 
 export const Select = styled(LinearGradient)`
-  width: 100%;
+  width: 95%;
   border-radius: 8px;
   padding: 1px;
 `;

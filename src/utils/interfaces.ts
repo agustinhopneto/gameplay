@@ -1,6 +1,6 @@
 export interface Appointment {
   id: string;
-  game: string;
+  game: Game;
   guild: Guild;
   category: string;
   date: string;
@@ -28,4 +28,11 @@ export interface User {
   avatar: string;
   email: string;
   token: string;
+}
+
+export interface Game {
+  id: number;
+  name: string;
+  background_image: string;
+  metacritic: number;
 }

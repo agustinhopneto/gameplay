@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { Fontisto } from '@expo/vector-icons';
 import { useRoute } from '@react-navigation/native';
@@ -30,8 +30,6 @@ import {
 import { Empty } from '../../components/Empty';
 import { useToast } from '../../hooks/toast';
 
-const { CDN_IMAGE } = process.env;
-
 type Params = {
   appointment: Appointment;
 };
@@ -52,10 +50,6 @@ export const AppointmentDetails: React.FC = () => {
   const [widget, setWidget] = useState<GuildWdget>({} as GuildWdget);
 
   const { addToast } = useToast();
-
-  const imageUrl = useMemo(() => {
-    return `${CDN_IMAGE}/icons/${appointment.guild.id}/${appointment.guild.icon}.png`;
-  }, [appointment]);
 
   const loadGuildWidget = useCallback(async () => {
     try {
@@ -114,7 +108,7 @@ export const AppointmentDetails: React.FC = () => {
         <Load />
       ) : (
         <>
-          <Banner source={{ uri: imageUrl }}>
+          <Banner source={{ uri: appointment.game.background_image }}>
             <BannerContent>
               <Title>{appointment.guild.name}</Title>
               <Subtitle>{appointment.description}</Subtitle>

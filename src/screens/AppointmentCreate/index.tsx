@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLLECTION_APPOINTMENTS } from '../../configs/storage';
 import { setCategory } from '../../utils/functions';
 import { theme } from '../../global/styles/theme';
+import { useToast } from '../../hooks/toast';
 
 import { Background } from '../../components/Background';
 import { CategorySelect } from '../../components/CategorySelect';
@@ -18,7 +19,7 @@ import { TextArea } from '../../components/TextArea';
 import { Button } from '../../components/Button';
 import { ModalView } from '../../components/ModalView';
 import { GuildList } from '../GuildList';
-import { Guild } from '../../utils/interfaces';
+import { Game, Guild } from '../../utils/interfaces';
 import { GuildIcon } from '../../components/GuildIcon';
 
 import {
@@ -38,15 +39,17 @@ import {
   FieldHeader,
   Footer,
 } from './styles';
-import { useToast } from '../../hooks/toast';
+import { GameList } from '../GameList';
 
 export const AppointmentCreate: React.FC = () => {
   const navigation = useNavigation();
 
   const [openGuildsModal, setOpenGuildsModal] = useState(false);
-  const [guild, setGuild] = useState<Guild>({} as Guild);
+  const [openGamesModal, setOpenGamesModal] = useState(false);
   const [canSave, setCanSave] = useState(false);
 
+  const [guild, setGuild] = useState<Guild>({} as Guild);
+  const [game, setGame] = useState<Game>({} as Game);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
@@ -62,14 +65,15 @@ export const AppointmentCreate: React.FC = () => {
   useEffect(() => {
     const isFilled =
       ![selectedCategory, day, month, hour, minute, description].includes('') &&
-      guild.id;
+      guild.id &&
+      game.id;
 
     if (isFilled) {
       setCanSave(true);
     } else {
       setCanSave(false);
     }
-  }, [selectedCategory, day, month, hour, minute, description, guild]);
+  }, [selectedCategory, day, month, hour, minute, description, guild, game]);
 
   const handleSave = useCallback(async () => {
     const formattedDate = `${day.padStart(2, '0')}/${month.padStart(
@@ -80,6 +84,7 @@ export const AppointmentCreate: React.FC = () => {
     const newAppointment = {
       id: uuid.v4(),
       guild,
+      game,
       category: selectedCategory,
       date: formattedDate,
       description,
@@ -111,6 +116,7 @@ export const AppointmentCreate: React.FC = () => {
     description,
     navigation,
     addToast,
+    game,
   ]);
 
   const handleOpenGuildsModal = useCallback(() => {
@@ -121,9 +127,22 @@ export const AppointmentCreate: React.FC = () => {
     setOpenGuildsModal(false);
   }, []);
 
+  const handleOpenGamesModal = useCallback(() => {
+    setOpenGamesModal(true);
+  }, []);
+
+  const handleCloseGamesModal = useCallback(() => {
+    setOpenGamesModal(false);
+  }, []);
+
   const handleGuildSelect = useCallback((selectedGuild: Guild) => {
     setGuild(selectedGuild);
     setOpenGuildsModal(false);
+  }, []);
+
+  const handleGameSelect = useCallback((selectedGame: Game) => {
+    setGame(selectedGame);
+    setOpenGamesModal(false);
   }, []);
 
   const handleSelectCategory = useCallback(
@@ -163,6 +182,28 @@ export const AppointmentCreate: React.FC = () => {
                 <SelectBody>
                   <SelectLabel>
                     {guild.id ? guild.name : 'Selecione um servidor'}
+                  </SelectLabel>
+                  <Feather name="chevron-right" size={12} color={highlight} />
+                </SelectBody>
+              </SelectContent>
+            </Select>
+
+            <Select
+              colors={[secondary40, secondary60]}
+              style={{ marginTop: 24 }}
+            >
+              <SelectContent onPress={handleOpenGamesModal}>
+                {game.id ? (
+                  <GuildIcon gameIcon={game.background_image} />
+                ) : (
+                  <EmptyImageBorder colors={[secondary40, secondary60]}>
+                    <EmptyImage colors={[secondary70, secondary50]} />
+                  </EmptyImageBorder>
+                )}
+
+                <SelectBody>
+                  <SelectLabel>
+                    {game.id ? game.name : 'Selecione um jogo'}
                   </SelectLabel>
                   <Feather name="chevron-right" size={12} color={highlight} />
                 </SelectBody>
@@ -224,6 +265,10 @@ export const AppointmentCreate: React.FC = () => {
 
       <ModalView visible={openGuildsModal} closeModal={handleCloseGuildsModal}>
         <GuildList handleSelectGuild={handleGuildSelect} />
+      </ModalView>
+
+      <ModalView visible={openGamesModal} closeModal={handleCloseGamesModal}>
+        <GameList handleSelectGame={handleGameSelect} />
       </ModalView>
     </Background>
   );
