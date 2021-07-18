@@ -3,6 +3,7 @@
 |> Componente de lista vazia - ✅
 |> Loading animado personalizado - ✅
 |> Adicionar o jogo no Agendamento (RAWG API) - ✅
+|> Mostrar banner do jogo nos detalhes - ✅
 |> Validar Data e Horário - ✅
   -> Data válida - ✅
   -> Horário válido - ✅
