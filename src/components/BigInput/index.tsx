@@ -10,7 +10,12 @@ export const BigInput: React.FC<TextInputProps> = ({ ...rest }) => {
   return (
     <Container colors={[secondary40, secondary60]}>
       <Content colors={[secondary70, secondary50]}>
-        <Input autoCapitalize="words" autoCorrect={false} {...rest} />
+        <Input
+          autoCapitalize="words"
+          autoCorrect={false}
+          placeholderTextColor={theme.colors.highlight}
+          {...rest}
+        />
       </Content>
     </Container>
   );

@@ -24,6 +24,10 @@
         "backgroundColor": "#FFFFFF"
       }
     },
+    "androidNavigationBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#0A1033"
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     }
