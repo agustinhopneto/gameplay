@@ -36,6 +36,7 @@
     "react-native-reanimated": "~2.1.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
+    "react-native-simple-animations": "^0.2.3",
     "react-native-svg": "12.1.0",
     "react-native-swipeout": "^2.3.6",
     "react-native-uuid": "^2.0.1",
