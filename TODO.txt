@@ -8,5 +8,5 @@
   -> Data válida - ✅
   -> Horário válido - ✅
   -> Data e horário é no futuro - ✅
-|> Modal de Logout
-|> Animações
+|> Modal de Logout - ✅
+|> Animações nos Toasts
