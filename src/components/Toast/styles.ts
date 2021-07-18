@@ -24,7 +24,7 @@ export const Container = styled.TouchableOpacity<ContainerProps>`
 
 export const Content = styled.View`
   padding: 0 8px;
-  margin-left: 4px;
+  margin: 0 4px;
 `;
 
 export const Title = styled.Text`
@@ -37,4 +37,5 @@ export const Description = styled.Text`
   color: ${theme.colors.heading};
   font-size: 13px;
   font-family: ${theme.fonts.text400};
+  margin-right: 4px;
 `;

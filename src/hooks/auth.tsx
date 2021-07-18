@@ -98,8 +98,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const signOut = useCallback(async () => {
-    setUser({} as User);
     await AsyncStorage.removeItem(COLLECTION_USERS);
+    setUser({} as User);
   }, []);
 
   return (

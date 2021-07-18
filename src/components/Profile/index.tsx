@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Alert, TouchableOpacity } from 'react-native';
 
 import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 import { Avatar } from '../Avatar';
 import {
   Container,
@@ -14,6 +15,7 @@ import {
 
 export const Profile: React.FC = () => {
   const { user, signOut } = useAuth();
+  const { addToast } = useToast();
 
   const handleSignOut = useCallback(() => {
     Alert.alert('Logout', 'Deseja sair do GamePlay?', [
@@ -25,10 +27,15 @@ export const Profile: React.FC = () => {
         text: 'Sim',
         onPress: async () => {
           await signOut();
+          addToast({
+            type: 'success',
+            title: 'Deslogado com sucesso',
+            description: 'Esperamos ver você em breve!',
+          });
         },
       },
     ]);
-  }, [signOut]);
+  }, [signOut, addToast]);
 
   return (
     <Container>

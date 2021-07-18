@@ -40,6 +40,7 @@ import {
   Footer,
 } from './styles';
 import { GameList } from '../GameList';
+import { validateDateTime } from '../../utils/validations';
 
 export const AppointmentCreate: React.FC = () => {
   const navigation = useNavigation();
@@ -76,36 +77,46 @@ export const AppointmentCreate: React.FC = () => {
   }, [selectedCategory, day, month, hour, minute, description, guild, game]);
 
   const handleSave = useCallback(async () => {
-    const formattedDate = `${day.padStart(2, '0')}/${month.padStart(
-      2,
-      '0',
-    )} às ${hour.padStart(2, '0')}:${minute.padStart(2, '0')}h`;
+    try {
+      validateDateTime(day, month, hour, minute);
 
-    const newAppointment = {
-      id: uuid.v4(),
-      guild,
-      game,
-      category: selectedCategory,
-      date: formattedDate,
-      description,
-    };
+      const formattedDate = `${day.padStart(2, '0')}/${month.padStart(
+        2,
+        '0',
+      )} às ${hour.padStart(2, '0')}:${minute.padStart(2, '0')}h`;
 
-    const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+      const newAppointment = {
+        id: uuid.v4(),
+        guild,
+        game,
+        category: selectedCategory,
+        date: formattedDate,
+        description,
+      };
 
-    const appointments = storage ? JSON.parse(storage) : [];
+      const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
 
-    await AsyncStorage.setItem(
-      COLLECTION_APPOINTMENTS,
-      JSON.stringify([...appointments, newAppointment]),
-    );
+      const appointments = storage ? JSON.parse(storage) : [];
 
-    navigation.navigate('Home');
+      await AsyncStorage.setItem(
+        COLLECTION_APPOINTMENTS,
+        JSON.stringify([...appointments, newAppointment]),
+      );
 
-    addToast({
-      type: 'success',
-      title: 'Sucesso!',
-      description: 'Seu agendamento foi criado!',
-    });
+      navigation.navigate('Home');
+
+      addToast({
+        type: 'success',
+        title: 'Sucesso!',
+        description: 'Seu agendamento foi criado!',
+      });
+    } catch (error) {
+      addToast({
+        type: 'error',
+        title: 'Dados inválidos',
+        description: error.message,
+      });
+    }
   }, [
     guild,
     selectedCategory,
