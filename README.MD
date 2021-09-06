@@ -112,9 +112,9 @@ Para rodar o projeto é importante que tenha o [Node.js](nodejs.org) instalado n
 
 ## 📹 Vídeo <a name = "video"></a>
 
-  <figure class="video_container">
-    <video width="100%" height="auto" controls="true" allowfullscreen="true">
-      <source src=".github/assets/video.mp4">
+  <figure>
+    <video width="100%" height="auto" controls allowfullscreen>
+      <source src="./.github/assets/video.mp4">
     </video>
   </figure>
 
