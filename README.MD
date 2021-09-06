@@ -15,8 +15,8 @@ Aplicação desenvolvida durante a **Next Level Week** da [Rocketseat](https://r
 - [Funcionalidades](#tools)
 - [Instalação](#install)
 - [Tecnologias utilizadas](#built_using)
-- [Autores](#authors)
 - [Vídeo](#video)
+- [Autores](#authors)
   <br /><br />
 
 ## 🧐 Sobre <a name = "about"></a>
@@ -69,10 +69,14 @@ Para rodar o projeto é importante que tenha o [Node.js](https://www.nodejs.org)
 
 ## 📹 Vídeo <a name = "video"></a>
 
-[![GamePlay Video](./.github/assets/thumbnail.png)](https://www.youtube.com/watch?v=nfeNhzK9vug 'App - GamePlay')
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=nfeNhzK9vug" target="_blank">
+  <img width="75%" height=auto src="./.github/assets/thumbnail.png" alt="GamePlay">
+  </a>
+</p>
 
 <br /><br />
 
-## ✍️ Autor <a name = "authors"></a>
+## ✍️ Autores <a name = "authors"></a>
 
 - [@agustinhopneto](https://linkedin.com/in/agustinhopneto)
