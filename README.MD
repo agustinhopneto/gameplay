@@ -112,9 +112,11 @@ Para rodar o projeto é importante que tenha o [Node.js](nodejs.org) instalado n
 
 ## 📹 Vídeo <a name = "video"></a>
 
-<p align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/nfeNhzK9vug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</p>
+  <figure class="video_container">
+    <video width="100%" height="auto" controls="true" allowfullscreen="true">
+      <source src=".github/assets/video.mp4">
+    </video>
+  </figure>
 
 ## ✍️ Autor <a name = "authors"></a>
 
