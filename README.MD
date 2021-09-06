@@ -75,8 +75,6 @@ Para rodar o projeto é importante que tenha o [Node.js](https://www.nodejs.org)
   </a>
 </p>
 
-<br /><br />
-
 ## ✍️ Autores <a name = "authors"></a>
 
 - [@agustinhopneto](https://linkedin.com/in/agustinhopneto)
