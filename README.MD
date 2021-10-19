@@ -21,7 +21,7 @@ Aplicação desenvolvida durante a **Next Level Week** da [Rocketseat](https://r
 
 ## 🧐 Sobre <a name = "about"></a>
 
-A aplicação é um organizador de partidas multiplayer, permitindo agendar partidas da maioria dos jogos e vincular a um servidor do [Discord](https://www.discord.com). Assim, não só possível ver os usuários disponíveis no servidor, mas também compartilhar o link de convite outros amigos!<br /><br />
+A aplicação é um organizador de partidas multiplayer, permitindo agendar partidas da maioria dos jogos e vincular a um servidor do [Discord](https://www.discord.com). Assim, não só é possível ver os usuários disponíveis no servidor, mas também compartilhar o link de convite com outros amigos!<br /><br />
 
 ## 🔧 Funcionalidades <a name = "tools"></a>
 
